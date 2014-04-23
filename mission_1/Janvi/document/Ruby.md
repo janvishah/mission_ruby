@@ -33,4 +33,3 @@ ex: i make 1 file named hello.rb
     for that i set path variable in .bash_aliaases file (add below line in this file.)
       alias exefilename = "path/to/file/exefilename"
       ex: alias hello.rb="~/Documents/hello.rb"
-

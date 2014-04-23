@@ -64,47 +64,47 @@ class Board
       puts "#{player.name} please enter your position:"
       symbol = player.symbol      
       temp_position = gets.chomp 
-      check = check_valid_position(temp_position,symbol)
-    end while check!=1
+      check = is_position_valid?(temp_position,symbol)
+    end while check!=true
   end
 
   # Check that the enter position is valid or not
   # return 0: invalie, 1:valid
-  def check_valid_position(temp_position,symbol)
+  def is_position_valid?(temp_position,symbol)
     @board_position.each do |key,value|
       if key == temp_position
         if @board_position[key][value] != ""
           puts "This position is already take before" 
-          return 0
+          return false
         else
           @board_position[key] = symbol          
-          return 1
+          return true
         end
       end      
     end   
     puts "There is no positions like this"
-    return 0
+    return false
   end
 
   #conditions for checking result
   def check_result
     position = @board_position.values
-    if position[0] == position[2] && position[0] == position[1]
-      winner = find_winner(position[0])  
-    elsif position[3] == position[4] && position[3] == position[5]
-      winner = find_winner(position[3])    
-    elsif position[6] == position[7] && position[6] == position[8]
-      winner = find_winner(position[6])    
-    elsif position[0] == position[3] && position[0] == position[6]
-      winner = find_winner(position[0])   
-    elsif position[2] == position[4] && position[2] == position[7]
-      winner = find_winner(position[2])    
-    elsif position[1] == position[5] && position[1] == position[8]
-      winner = find_winner(position[1])   
-    elsif position[0] == position[4] && position[0] == position[8]
-      winner = find_winner(position[0])   
-    elsif position[2] == position[4] && position[2] == position[6]
-      winner = find_winner(position[2])
+    if @board_position["A1"] == @board_position["A2"] && @board_position["A1"] == @board_position["A3"]
+      winner = find_winner(@board_position["A1"])  
+    elsif @board_position["B1"] == @board_position["B2"] && @board_position["B1"] == @board_position["B3"]
+      winner = find_winner(@board_position["B1"])    
+    elsif @board_position["C1"] == @board_position["C2"] && @board_position["C1"] == @board_position["C3"]
+      winner = find_winner(@board_position["C1"])    
+    elsif @board_position["A1"] == @board_position["B1"] && @board_position["A1"] == @board_position["C1"]
+      winner = find_winner(@board_position["A1"])   
+    elsif @board_position["A2"] == @board_position["B2"] && @board_position["A2"] == @board_position["C2"]
+      winner = find_winner(@board_position["A2"])    
+    elsif @board_position["A3"] == @board_position["B3"] && @board_position["A3"] == @board_position["C3"]
+      winner = find_winner(@board_position["A3"])   
+    elsif @board_position["A1"] == @board_position["B2"] && @board_position["A1"] == @board_position["C3"]
+      winner = find_winner(@board_position["A1"])   
+    elsif @board_position["A3"] == @board_position["B2"] && @board_position["A3"] == @board_position["C1"]
+      winner = find_winner(@board_position["A3"])
     else
       winner = nil
     end    
