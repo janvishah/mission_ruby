@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+print "Enter num 1 : "
+num1 = gets.to_i
+print "Enter num 2 : "
+num2 = gets.to_i
+
+print "Addition of num1 and num2 is : ", num1+num2, "\n"
+

@@ -1,0 +1,38 @@
+## 
+
+# What exactly happens when you install ruby?
+
+	When we install ruby, it gets stored in /usr/bin/env.
+	When we create a ruby file in some folder other than /usr/bin/env, it cannot be run as the the execution file ruby is not available in this folder, it is in /usr/bin/env.
+	Yet we do not necessarily need to store all the ruby files in /usr/bin/env. To run it from any folder, the path of the file should be given in .profile or .bashrc file. It is called as setting environment variable.
+	.profile is executed autometically during the startup process and .bashrc is executed autometically every time terminal is opened.
+	After setting a path in .bashrc it is required to restart the terminal so as to execute .bashrc file.
+	Following this step every time any ruby file can be run from any folder.
+
+	(Sourcs: Janvi's answer)
+
+# Where does it get installed?
+	/.rvm/rubies/ruby-2.1.0/bin
+
+# What files are installed?
+	erb
+	gem
+	irb
+	rake
+	rdoc
+	ri
+	ruby
+	testrb
+
+# How do we get access to Ruby from any location in command prompt?
+	By creating an executable file/alias of it.(Steps in the next question)
+
+# How to make hello.rb file executable
+	steps:
+		1. Add execute permissions
+			chmod 777 helloworld.rb
+		2. Rename the file
+			mv helloworld.rb helloworld_rb
+		3. Create an alias
+			ln -s $PWD/helloworld_rb /usr/local/bin/ 
+		(Source: http://commandercoriander.net/blog/2013/02/16/making-a-ruby-script-executable/)
