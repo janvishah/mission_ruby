@@ -1,5 +1,5 @@
 require "csv"
-require "./active_record/Base"
+require "./active_record/test"
 include ActiveRecord
 require "./City"
 require "./State"
