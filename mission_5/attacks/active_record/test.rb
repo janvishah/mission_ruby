@@ -43,7 +43,9 @@ module ActiveRecord
             attr_names.push(row[col_num].strip)        
           end        
         else
-          return create_object(attr_names,row,s) if row[place_of_attribute].strip == value.to_s                    
+          if row[place_of_attribute].strip == value.to_s           
+            return create_object(attr_names,row,s)
+          end
         end
         place_of_attribute != nil ? i += 1 : break      
       end 
@@ -60,38 +62,11 @@ module ActiveRecord
       return s
     end
 
-    # this class<<self is the same as self.method
-    
-      def self.has_many(var)    
-        define_method(var) { 
-          self_obj = self.id          
-          col_name = self.class.name.downcase + "_id"
-          class_name = Object.const_get(var.to_s.singularize.capitalize)
-          data = []
-          obj = nil
-          i = 0
-          attr_names = []
-          place_of_attribute = nil
-          CSV.foreach("./database/#{var}.csv") do |row|
-            s = class_name.new
-            col = row.length        
-            if i == 0
-              (0..col-1).each do |col_num|                                
-                place_of_attribute = col_num if row[col_num].strip == col_name           
-                attr_names.push(row[col_num].strip)        
-              end        
-            else
-              if row[place_of_attribute].strip == self_obj.to_s  
-                obj = self.class.create_object(attr_names,row,s)                  
-                data.push(obj)
-              end
-            end             
-            place_of_attribute != nil ? i += 1 : break      
-          end           
-          data    
-        }
+    def has_many(var)   
+      class << self           
+        define_method(var) { return "Nice!  I'm #{var}" }
       end
-   
+    end    
 
   end
 end

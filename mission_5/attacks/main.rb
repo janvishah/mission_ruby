@@ -1,5 +1,5 @@
 require "csv"
-require "./active_record/test"
+require "./active_record/Base"
 include ActiveRecord
 require "./City"
 require "./State"
@@ -31,3 +31,7 @@ state = State.find(3)
 puts state.name == "punjab"
 city = City.find(4)
 puts city.name == "pune"
+
+# has_many
+puts State.find(1).cities.count == 2
+puts State.find(1).cities.count == 2
