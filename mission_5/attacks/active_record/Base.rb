@@ -13,17 +13,15 @@ module ActiveRecord
       attr_names = []
       CSV.foreach("./database/#{name}.csv") do |row|
         col = row.length
-        f = self.new
+        s = self.new
         if i == 0
           (0..col-1).each do |col_num|          
             attr_names.push(row[col_num].strip)
           end
         else   
-          attr_names.each_with_index do |attr_name,index|                              
-            f.send("#{attr_name}=",row[index])
-          end
+          self_obj = create_object(attr_names,row,s)
         end                    
-        data.push(f) if i>0                       
+        data.push(self_obj) if i>0                       
         i = i + 1
       end          
       data      
@@ -46,15 +44,41 @@ module ActiveRecord
           end        
         else
           if row[place_of_attribute].strip == value.to_s           
-            attr_names.each_with_index do |attr_name,index|                              
-              s.send("#{attr_name}=",row[index].strip)
-            end
-            return s
+            return create_object(attr_names,row,s)
           end
         end
         place_of_attribute != nil ? i += 1 : break      
       end 
     end
-    
+
+    def self.find(var)
+      name = self.name.pluralize.downcase
+      attr_names = []
+      place_of_attribute = nil
+      i = 0
+      CSV.foreach("./database/#{name}.csv") do |row|
+        s = self.new
+        col = row.length        
+        if i == 0
+          (0..col-1).each do |col_num|  
+            place_of_attribute = col_num if row[col_num].strip == "id"               
+            attr_names.push(row[col_num].strip)
+          end
+        else            
+          if row[place_of_attribute].strip.to_i == var           
+            return create_object(attr_names,row,s)
+          end
+        end  
+        place_of_attribute != nil ? i += 1 : break  
+      end        
+    end
+
+    def self.create_object(attr_names,row,s)
+      attr_names.each_with_index do |attr_name,index|                              
+        s.send("#{attr_name}=",row[index].strip)
+      end
+      return s
+    end
+
   end
 end

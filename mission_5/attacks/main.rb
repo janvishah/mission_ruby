@@ -1,5 +1,5 @@
 require "csv"
-require "./active_record/Base"
+require "./active_record/test"
 include ActiveRecord
 require "./City"
 require "./State"
@@ -10,6 +10,7 @@ puts Country.all.count == 2 # Returns array of all countries.
 puts State.all.count == 4   # Returns array of all states.
 puts City.all.count == 8    # Returns array of all cities.
 
+# Find by attribute name.
 country = Country.find_by name: 'india'
 puts country.name == "india"
 country = Country.find_by id: 2         # Country object.
@@ -21,4 +22,12 @@ puts state.name == "maharashtra"
 city = City.find_by name: 'bharuch'     # City object.
 puts city.name == "bharuch"
 city = City.find_by id: 4               # City object.
+puts city.name == "pune"
+
+# Find using id.
+country = Country.find(2)
+puts country.name == "pakistan"
+state = State.find(3)
+puts state.name == "punjab"
+city = City.find(4)
 puts city.name == "pune"
